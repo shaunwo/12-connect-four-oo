@@ -30,8 +30,6 @@ class Game {
   makeHTMLBoard() {
     const board = document.getElementById('board');
     board.innerHTML = '';
-    //console.log(`height: ${this.height}`);
-    //console.log(`width: ${this.width}`);
 
     // make column tops (clickable area for adding a piece to that column)
     const top = document.createElement('tr');
@@ -121,12 +119,11 @@ class Game {
     } else if (this.currPlayer === this.players[2]) {
       this.currPlayer = this.players[0];
     }
-    //this.currPlayer = this.currPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
 
   /** checkForWin: check board cell-by-cell for "does a win start here?" */
   checkForWin() {
-    const _win = cells =>
+    const fourInARow = cells =>
       cells.every(
       ([y, x]) =>
       y >= 0 &&
@@ -146,7 +143,7 @@ class Game {
         const diagDL = [[y, x], [y + 1, x - 1], [y + 2, x - 2], [y + 3, x - 3]];
 
         // find winner (only checking each win-possibility as needed)
-        if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+        if (fourInARow(horiz) || fourInARow(vert) || fourInARow(diagDR) || fourInARow(diagDL)) {
           return true;
         }
       }
